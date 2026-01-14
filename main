@@ -1,0 +1,9 @@
+local replacemetamethod = function (object: Instance, metamethod: String, hook: Function)
+    local mt = (object ~= game and table.clone(getrawmetatable(object)) or getrawmetatable(object));
+    local old = rawget(mt, metamethod);
+    setreadonly(mt, false); 
+    rawset(mt, metamethod, hook);
+    setreadonly(mt, true);
+    setrawmetatable(object, mt);
+    return old
+end;
